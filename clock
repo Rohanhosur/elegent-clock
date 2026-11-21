@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.clock {
+  text-align: center;
+  text-shadow: 0 2px 15px rgba(0,0,0,0.35);
+}
+
+.time {
+  font-size: clamp(60px, 10vw, 130px);
+  font-weight: 200;
+  letter-spacing: 5px;
+}
+
+.ampm {
+  font-size: 22px;
+  letter-spacing: 3px;
+}
+
+.date {
+  font-size: clamp(15px, 2vw, 23px);
+  font-weight: 300;
+  letter-spacing: 5px;
+  margin-top: 12px;
+}
+
+.caption {
+  font-size: 12px;
+  letter-spacing: 7px;
+  color: #bbbbbb;
+  margin-top: 25px;
+}
+</style>
+</head>
+
+<body>
+<div class="clock">
+  <div class="time">
+    <span id="time">00:00</span>
+    <span class="ampm" id="ampm">AM</span>
+  </div>
+  <div class="date" id="date"></div>
+  <div class="caption">A MOMENT IN TIME</div>
+</div>
+
+<script>
+function updateClock() {
+  const now = new Date();
+
+  document.getElementById("time").textContent =
+    now.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true
+    }).replace(/\s?[AP]M/, "");
+
+  document.getElementById("ampm").textContent =
+    now.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      hour12: true
+    }).slice(-2);
+
+  document.getElementById("date").textContent =
+    now.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric"
+    }).toUpperCase();
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+</body>
+</html>
